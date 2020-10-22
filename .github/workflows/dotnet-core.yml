@@ -1,4 +1,4 @@
-name: .NET Core
+name: Build check
 
 on:
   push:
@@ -21,5 +21,9 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
+    - name: Setup .NET Core for tests
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.1.0
     - name: Test
       run: dotnet test --no-restore --verbosity normal
