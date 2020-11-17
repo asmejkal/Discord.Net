@@ -14,17 +14,15 @@ jobs:
       - uses: actions/checkout@v2
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Install dependencies
         run: dotnet restore
 
       - name: Build Discord.Net
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build --no-restore --configuration Release '/p:RepositoryUrl=https://github.com/yebafan/Discord.Net'
 
       - name: Pack Discord.Net
         run: dotnet pack --no-build --configuration Release
 
       - name: Push generated package to GitHub registry
-        run: dotnet nuget push **/*.nupkg --source https://nuget.pkg.github.com/yebafan/Discord.Net/index.json --api-key ${{github.token}} --skip-duplicate --no-symbols true
+        run: dotnet nuget push **/*.nupkg --source https://nuget.pkg.github.com/yebafan/index.json --api-key ${{github.token}} --skip-duplicate --no-symbols true
