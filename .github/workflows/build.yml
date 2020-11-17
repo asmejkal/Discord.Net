@@ -1,0 +1,35 @@
+name: Build using .NET Core
+
+on:
+  push:
+    branches: dev
+    paths-ignore:
+      - 'docs/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          source-url: https://nuget.pkg.github.com/<organization>/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}   
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build Discord.Net
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Run Unit Tests
+        run: dotnet test --no-build --configuration Release
+
+      - name: Pack Discord.Net
+        run: dotnet pack --no-build --configuration Release --include-source --include-symbols
+
+      - name: Push generated package to GitHub registry
+        run: dotnet nuget push **/*.nupkg --skip-duplicate
