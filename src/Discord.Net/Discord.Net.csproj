@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net461;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;netstandard2.1</TargetFrameworks>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+	<NuspecFile>Discord.Net.nuspec</NuspecFile>
+	<NuspecProperties>suffix=$(VersionSuffix)</NuspecProperties>
+  </PropertyGroup>
+</Project>
