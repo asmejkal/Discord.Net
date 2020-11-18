@@ -23,10 +23,9 @@ jobs:
 
       - name: Pack Discord.Net
         run: |
-            dotnet pack --no-build --configuration Release --include-source --include-symbols --version-suffix dev-yeba-${VER_TIME_SUFFIX}
-            dotnet pack --no-build --configuration Release /p:VersionSuffix=-yeba-${VER_TIME_SUFFIX}
-        env:
-            VER_TIME_SUFFIX: $(date +%Y%m%d%H%M%S)
+            NOW=$(date +%Y%m%d%H%M%S)
+            dotnet pack --no-build --configuration Release --include-source --include-symbols --version-suffix dev-yeba-$NOW
+            dotnet pack --no-build --configuration Release /p:VersionSuffix=-yeba-$NOW
 
       - name: Push generated package to GitHub registry
         run: |
