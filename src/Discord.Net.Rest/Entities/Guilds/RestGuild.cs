@@ -161,7 +161,7 @@ namespace Discord.Rest
             BannerId = model.Banner;
             SystemChannelFlags = model.SystemChannelFlags;
             Description = model.Description;
-            if (model.PremiumSubscriptionCount.IsSpecified)
+            if (model.PremiumSubscriptionCount.HasValue)
                 PremiumSubscriptionCount = model.PremiumSubscriptionCount.Value;
             if (model.MaxPresences.IsSpecified)
                 MaxPresences = model.MaxPresences.Value ?? 25000;
