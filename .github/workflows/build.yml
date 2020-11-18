@@ -25,9 +25,9 @@ jobs:
         run: |
             NOW=$(date +%Y%m%d%H%M%S)
             dotnet pack --no-build --configuration Release --include-source --include-symbols --version-suffix dev-yeba-$NOW
-            dotnet pack --no-build --configuration Release /p:VersionSuffix=-yeba-$NOW
+            dotnet pack src/Discord.Net/Discord.Net.csproj --no-build --configuration Release /p:VersionSuffix=-yeba-$NOW
 
       - name: Push generated package to GitHub registry
         run: |
             dotnet nuget add source 'https://pkgs.dev.azure.com/Yeba/DustyBot/_packaging/Dependencies/nuget/v3/index.json' --name azure --username ${{secrets.AZURE_USER}} --password ${{secrets.AZURE_PKG_PUBLISH_PAT}} --store-password-in-clear-text
-            dotnet nuget push **/*.nupkg -s azure -k az --skip-duplicate
+            dotnet nuget push src/**/*.nupkg -s azure -k az --skip-duplicate
