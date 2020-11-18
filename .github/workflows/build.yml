@@ -25,7 +25,7 @@ jobs:
         run: |
             NOW=$(date +%Y%m%d%H%M%S)
             dotnet pack --no-build --configuration Release --include-source --include-symbols --version-suffix dev-yeba-$NOW
-            dotnet pack src/Discord.Net/Discord.Net.csproj --no-build --configuration Release /p:VersionSuffix=-yeba-$NOW
+            dotnet pack src/Discord.Net/Discord.Net.csproj --configuration Release /p:VersionSuffix=-yeba-$NOW
 
       - name: Push generated package to GitHub registry
         run: |
