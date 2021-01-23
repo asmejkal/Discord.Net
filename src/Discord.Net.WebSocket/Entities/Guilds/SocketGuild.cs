@@ -136,7 +136,7 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public string BannerUrl => CDN.GetGuildBannerUrl(Id, BannerId);
         /// <summary> Indicates whether the client has all the members downloaded to the local guild cache. </summary>
-        public bool HasAllMembers => MemberCount == DownloadedMemberCount;// _downloaderPromise.Task.IsCompleted;
+        public bool HasAllMembers => MemberCount <= DownloadedMemberCount;// _downloaderPromise.Task.IsCompleted;
         /// <summary> Indicates whether the guild cache is synced to this guild. </summary>
         public bool IsSynced => _syncPromise.Task.IsCompleted;
         public Task SyncPromise => _syncPromise.Task;
@@ -175,6 +175,26 @@ namespace Discord.WebSocket
             {
                 var id = AFKChannelId;
                 return id.HasValue ? GetVoiceChannel(id.Value) : null;
+            }
+        }
+        /// <summary>
+        ///     Gets the max bitrate for voice channels in this guild.
+        /// </summary>
+        /// <returns>
+        ///     A <see cref="int"/> representing the maximum bitrate value allowed by Discord in this guild.
+        /// </returns>
+        public int MaxBitrate
+        {
+            get
+            {
+                var maxBitrate = PremiumTier switch
+                {
+                    PremiumTier.Tier1 => 128000,
+                    PremiumTier.Tier2 => 256000,
+                    PremiumTier.Tier3 => 384000,
+                    _ => 96000,
+                };
+                return maxBitrate;
             }
         }
         /// <summary>
@@ -448,8 +468,7 @@ namespace Discord.WebSocket
             BannerId = model.Banner;
             SystemChannelFlags = model.SystemChannelFlags;
             Description = model.Description;
-            if (model.PremiumSubscriptionCount.IsSpecified)
-                PremiumSubscriptionCount = model.PremiumSubscriptionCount.Value;
+            PremiumSubscriptionCount = model.PremiumSubscriptionCount.GetValueOrDefault();
             if (model.MaxPresences.IsSpecified)
                 MaxPresences = model.MaxPresences.Value ?? 25000;
             if (model.MaxMembers.IsSpecified)
