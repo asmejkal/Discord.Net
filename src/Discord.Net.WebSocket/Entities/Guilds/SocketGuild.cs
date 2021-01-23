@@ -448,7 +448,7 @@ namespace Discord.WebSocket
             BannerId = model.Banner;
             SystemChannelFlags = model.SystemChannelFlags;
             Description = model.Description;
-            if (model.PremiumSubscriptionCount.HasValue)
+            if (model.PremiumSubscriptionCount.IsSpecified)
                 PremiumSubscriptionCount = model.PremiumSubscriptionCount.Value;
             if (model.MaxPresences.IsSpecified)
                 MaxPresences = model.MaxPresences.Value ?? 25000;
