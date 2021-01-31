@@ -24,7 +24,7 @@ jobs:
       - name: Pack Discord.Net
         run: |
             NOW=$(date +%Y%m%d%H%M%S)
-            dotnet pack --no-build --configuration Release --include-source --include-symbols --version-suffix dev-yeba-$NOW
+            dotnet pack --no-build --configuration Release --include-source --include-symbols --version-suffix yeba-$NOW
             dotnet pack src/Discord.Net/Discord.Net.csproj --configuration Release /p:VersionSuffix=-yeba-$NOW
 
       - name: Push packages
