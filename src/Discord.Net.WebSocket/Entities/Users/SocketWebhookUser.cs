@@ -25,6 +25,10 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public override string AvatarId { get; internal set; }
         /// <inheritdoc />
+        public override string BannerId { get; internal set; }
+        /// <inheritdoc />
+        public override Color AccentColor { get; internal set; }
+        /// <inheritdoc />
         public override bool IsBot { get; internal set; }
 
         /// <inheritdoc />

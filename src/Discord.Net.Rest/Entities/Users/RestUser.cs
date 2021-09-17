@@ -22,6 +22,10 @@ namespace Discord.Rest
         /// <inheritdoc />
         public string AvatarId { get; private set; }
         /// <inheritdoc />
+        public string BannerId { get; private set; }
+        /// <inheritdoc />
+        public Color AccentColor { get; private set; }
+        /// <inheritdoc />
         public UserProperties? PublicFlags { get; private set; }
 
         /// <inheritdoc />
@@ -61,6 +65,10 @@ namespace Discord.Rest
         {
             if (model.Avatar.IsSpecified)
                 AvatarId = model.Avatar.Value;
+            if (model.Banner.IsSpecified)
+                BannerId = model.Banner.Value;
+            if (model.AccentColor.IsSpecified)
+                AccentColor = model.AccentColor.Value;
             if (model.Discriminator.IsSpecified)
                 DiscriminatorValue = ushort.Parse(model.Discriminator.Value, NumberStyles.None, CultureInfo.InvariantCulture);
             if (model.Bot.IsSpecified)
@@ -95,6 +103,10 @@ namespace Discord.Rest
         /// <inheritdoc />
         public string GetDefaultAvatarUrl()
             => CDN.GetDefaultUserAvatarUrl(DiscriminatorValue);
+
+        /// <inheritdoc />
+        public string GetBannerUrl(ImageFormat format = ImageFormat.Auto, ushort size = 4096)
+            => CDN.GetUserBannerUrl(Id, BannerId, size, format);
 
         /// <summary>
         ///     Gets the Username#Discriminator of the user.

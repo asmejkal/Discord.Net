@@ -1,3 +1,4 @@
+using Discord.Rest;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -5,7 +6,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Discord.Rest;
 using Model = Discord.API.User;
 
 namespace Discord.WebSocket
@@ -24,6 +24,11 @@ namespace Discord.WebSocket
         public abstract ushort DiscriminatorValue { get; internal set; }
         /// <inheritdoc />
         public abstract string AvatarId { get; internal set; }
+        /// <inheritdoc />
+        public abstract string BannerId { get; internal set; }
+        /// <inheritdoc />
+        public abstract Color AccentColor { get; internal set; }
+
         /// <inheritdoc />
         public abstract bool IsWebhook { get; }
         /// <inheritdoc />
@@ -64,6 +69,16 @@ namespace Discord.WebSocket
                 AvatarId = model.Avatar.Value;
                 hasChanges = true;
             }
+            if (model.Banner.IsSpecified && model.Banner.Value != BannerId)
+            {
+                BannerId = model.Banner.Value;
+                hasChanges = true;
+            }
+            if (model.AccentColor.IsSpecified && model.AccentColor.Value != AccentColor)
+            {
+                AccentColor = model.AccentColor.Value;
+                hasChanges = true;
+            }
             if (model.Discriminator.IsSpecified)
             {
                 var newVal = ushort.Parse(model.Discriminator.Value, NumberStyles.None, CultureInfo.InvariantCulture);
@@ -102,6 +117,10 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public string GetDefaultAvatarUrl()
             => CDN.GetDefaultUserAvatarUrl(DiscriminatorValue);
+
+        /// <inheritdoc />
+        public string GetBannerUrl(ImageFormat format = ImageFormat.Auto, ushort size = 4096)
+            => CDN.GetUserBannerUrl(Id, BannerId, size, format);
 
         /// <summary>
         ///     Gets the full name of the user (e.g. Example#0001).
