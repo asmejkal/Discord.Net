@@ -27,7 +27,7 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public override string BannerId { get; internal set; }
         /// <inheritdoc />
-        public override Color AccentColor { get; internal set; }
+        public override Color? AccentColor { get; internal set; }
         /// <inheritdoc />
         public override bool IsBot { get; internal set; }
 

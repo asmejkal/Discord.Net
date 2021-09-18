@@ -12,7 +12,7 @@ namespace Discord.WebSocket
         public override ushort DiscriminatorValue { get; internal set; }
         public override string AvatarId { get; internal set; }
         public override string BannerId { get; internal set; }
-        public override Color AccentColor { get; internal set; }
+        public override Color? AccentColor { get; internal set; }
         internal override SocketPresence Presence { get; set; }
 
         public override bool IsWebhook => false;

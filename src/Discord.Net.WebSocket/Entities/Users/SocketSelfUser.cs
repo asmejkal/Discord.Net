@@ -31,7 +31,7 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public override string BannerId { get { return GlobalUser.BannerId; } internal set { GlobalUser.BannerId = value; } }
         /// <inheritdoc />
-        public override Color AccentColor { get { return GlobalUser.AccentColor; } internal set { GlobalUser.AccentColor = value; } }
+        public override Color? AccentColor { get { return GlobalUser.AccentColor; } internal set { GlobalUser.AccentColor = value; } }
         /// <inheritdoc />
         internal override SocketPresence Presence { get { return GlobalUser.Presence; } set { GlobalUser.Presence = value; } }
         /// <inheritdoc />

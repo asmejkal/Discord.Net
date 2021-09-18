@@ -27,7 +27,7 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public abstract string BannerId { get; internal set; }
         /// <inheritdoc />
-        public abstract Color AccentColor { get; internal set; }
+        public abstract Color? AccentColor { get; internal set; }
 
         /// <inheritdoc />
         public abstract bool IsWebhook { get; }
@@ -74,9 +74,9 @@ namespace Discord.WebSocket
                 BannerId = model.Banner.Value;
                 hasChanges = true;
             }
-            if (model.AccentColor.IsSpecified && model.AccentColor.Value != AccentColor)
+            if (model.AccentColor != AccentColor?.RawValue)
             {
-                AccentColor = model.AccentColor.Value;
+                AccentColor = model.AccentColor.HasValue ? new Color(model.AccentColor.Value) : null;
                 hasChanges = true;
             }
             if (model.Discriminator.IsSpecified)
