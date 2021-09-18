@@ -24,7 +24,7 @@ namespace Discord.Rest
         /// <inheritdoc />
         public string BannerId { get; private set; }
         /// <inheritdoc />
-        public Color AccentColor { get; private set; }
+        public Color? AccentColor { get; private set; }
         /// <inheritdoc />
         public UserProperties? PublicFlags { get; private set; }
 
@@ -67,8 +67,6 @@ namespace Discord.Rest
                 AvatarId = model.Avatar.Value;
             if (model.Banner.IsSpecified)
                 BannerId = model.Banner.Value;
-            if (model.AccentColor.IsSpecified)
-                AccentColor = model.AccentColor.Value;
             if (model.Discriminator.IsSpecified)
                 DiscriminatorValue = ushort.Parse(model.Discriminator.Value, NumberStyles.None, CultureInfo.InvariantCulture);
             if (model.Bot.IsSpecified)
@@ -77,6 +75,8 @@ namespace Discord.Rest
                 Username = model.Username.Value;
             if (model.PublicFlags.IsSpecified)
                 PublicFlags = model.PublicFlags.Value;
+
+            AccentColor = model.AccentColor.HasValue ? new Color(model.AccentColor.Value) : null;
         }
 
         /// <inheritdoc />

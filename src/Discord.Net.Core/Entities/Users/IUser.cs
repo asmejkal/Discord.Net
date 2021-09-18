@@ -66,7 +66,10 @@ namespace Discord
         /// <summary>
         ///     Gets the user's banner color.
         /// </summary>
-        Color AccentColor { get; }
+        /// /// <returns>
+        ///     The banner color or <c>null</c> if none is set.
+        /// </returns>
+        Color? AccentColor { get; }
         /// <summary>
         ///     Gets the per-username unique ID for this user.
         /// </summary>
