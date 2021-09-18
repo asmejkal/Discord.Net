@@ -21,9 +21,16 @@ namespace Discord.Rest
         public ushort DiscriminatorValue { get; private set; }
         /// <inheritdoc />
         public string AvatarId { get; private set; }
-        /// <inheritdoc />
+        /// <summary>
+        ///     Gets the identifier of this user's banner.
+        /// </summary>
         public string BannerId { get; private set; }
-        /// <inheritdoc />
+        /// <summary>
+        ///     Gets the user's banner color.
+        /// </summary>
+        /// /// <returns>
+        ///     The banner color or <c>null</c> if none is set.
+        /// </returns>
         public Color? AccentColor { get; private set; }
         /// <inheritdoc />
         public UserProperties? PublicFlags { get; private set; }
@@ -104,7 +111,19 @@ namespace Discord.Rest
         public string GetDefaultAvatarUrl()
             => CDN.GetDefaultUserAvatarUrl(DiscriminatorValue);
 
-        /// <inheritdoc />
+        /// <summary>
+        ///     Gets the banner URL for this user.
+        /// </summary>
+        /// <remarks>
+        ///     This property retrieves a URL for this user's banner. In event that the user does not have a valid banner
+        ///     (i.e. their avatar identifier is not set), this property will return <c>null</c>.
+        /// </remarks>
+        /// <param name="format">The format to return.</param>
+        /// <param name="size">The size of the image to return in. This can be any power of two between 16 and 4096.
+        /// </param>
+        /// <returns>
+        ///     A string representing the user's banner URL; <c>null</c> if the user does not have an avatar in place.
+        /// </returns>
         public string GetBannerUrl(ImageFormat format = ImageFormat.Auto, ushort size = 4096)
             => CDN.GetUserBannerUrl(Id, BannerId, size, format);
 

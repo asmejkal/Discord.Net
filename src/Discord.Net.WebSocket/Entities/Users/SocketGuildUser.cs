@@ -6,9 +6,9 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using UserModel = Discord.API.User;
 using MemberModel = Discord.API.GuildMember;
 using PresenceModel = Discord.API.Presence;
-using UserModel = Discord.API.User;
 
 namespace Discord.WebSocket
 {
@@ -38,10 +38,6 @@ namespace Discord.WebSocket
         public override ushort DiscriminatorValue { get { return GlobalUser.DiscriminatorValue; } internal set { GlobalUser.DiscriminatorValue = value; } }
         /// <inheritdoc />
         public override string AvatarId { get { return GlobalUser.AvatarId; } internal set { GlobalUser.AvatarId = value; } }
-        /// <inheritdoc />
-        public override string BannerId { get { return GlobalUser.BannerId; } internal set { GlobalUser.BannerId = value; } }
-        /// <inheritdoc />
-        public override Color? AccentColor { get { return GlobalUser.AccentColor; } internal set { GlobalUser.AccentColor = value; } }
         /// <inheritdoc />
         public GuildPermissions GuildPermissions => new GuildPermissions(Permissions.ResolveGuild(Guild, this));
         internal override SocketPresence Presence { get; set; }
